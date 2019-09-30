@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 3) do
 
   create_table "patients", force: :cascade do |t|
     t.string "name"
+    t.string "gender"
   end
 
   create_table "reviews", force: :cascade do |t|

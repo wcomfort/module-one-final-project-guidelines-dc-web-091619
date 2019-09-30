@@ -1,2 +1,2 @@
 adapter: 'sqlite3'
-database: 'db/data.rb'
+database: 'db/data.db'
