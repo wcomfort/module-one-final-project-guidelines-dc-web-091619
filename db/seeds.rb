@@ -1,3 +1,5 @@
+require "faker"
+
 Alexandria Hospital
 name: "Ramsey Falconer", gender: "M", specialtiy: "Neurology", experience: 9
 name: "Edward Chang", gender: "M", specialty: "Sports Medicine", experience: 10
@@ -40,3 +42,17 @@ name: "Z Chris", gender: "M", specialty: "Internal Medicine", experience: 33
 name: "Catherine Pipan", gender: "F", specialty: "Family Medicine", experience: 28
 name: "Ramsey Falconer", gender: "M", specialtiy: "Neurology", experience: 9
 name: "Rami Tabbarah", gender: "F", specialty: "Obstetrics and Gynecology", experience: 13
+
+36.times do 
+Patient.create([{
+name: Faker::Name.name,
+gender: Faker::Gender.binary_type
+}])
+end
+
+
+36.times do 
+Review.create([{
+rating: Faker::Number.within(range: 1..10)
+content: Faker::String.random(length: 15..45)
+}])
