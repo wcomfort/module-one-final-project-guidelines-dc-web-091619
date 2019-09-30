@@ -1,6 +1,6 @@
 require "pry"
 
-class Reviews < ActiveRecord::Base
+class Review < ActiveRecord::Base
     belongs_to :doctor
     belongs_to :patient
 
