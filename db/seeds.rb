@@ -1,3 +1,5 @@
+require "faker"
+=======
 # Alexandria Hospital
 Doctor.find_or_create_by(name: "Ramsey Falconer", gender: "M", specialtiy: "Neurology", experience: 9)
 Doctor.find_or_create_by(name: "Edward Chang", gender: "M", specialty: "Sports Medicine", experience: 10)
@@ -11,6 +13,7 @@ Doctor.find_or_create_by(name: "Leena Jha", gender: "F", specialty: "Diabetes an
 Doctor.find_or_create_by(name: "Z Chris", gender: "M", specialty: "Internal Medicine", experience: 33)
 Doctor.find_or_create_by(name: "John Cochran", gender: "M", specialty: "Neurology", experience: 46)
 Doctor.find_or_create_by(name: "Mark Theiss", gender: "M", specialty: "Orthopaedic Surgery", experience: 44)
+>>>>>>> 303678012571a2a9c47488d3bae3851d6fc6dc27
 
 # Farifax Hospital
 Doctor.find_or_create_by(name: "Lama Alsamara", gender: "F", specialty: "Internal Medicine", experience: 22)
@@ -27,6 +30,7 @@ Doctor.find_or_create_by(name: "Peter MacArthur", gender: "M", specialty: "Famil
 Doctor.find_or_create_by(name: "Paulina Gorney Brown", gender: "F", specialty: "Urology", experience: 9)
 
 
+=======
 # Loudoun Hospital
 Doctor.find_or_create_by(name: "Kim Freeman", gender: "F", specialty: "Obstetrics and Gynecology", experience: 22)
 Doctor.find_or_create_by(name: "Michele Justice", gender: "F", specialty: "Obstetrics and Gynecology", experience: 11)
@@ -40,3 +44,18 @@ Doctor.find_or_create_by(name: "Z Chris", gender: "M", specialty: "Internal Medi
 Doctor.find_or_create_by(name: "Catherine Pipan", gender: "F", specialty: "Family Medicine", experience: 28)
 Doctor.find_or_create_by(name: "Ramsey Falconer", gender: "M", specialtiy: "Neurology", experience: 9)
 Doctor.find_or_create_by(name: "Rami Tabbarah", gender: "F", specialty: "Obstetrics and Gynecology", experience: 13)
+>>>>>>> 303678012571a2a9c47488d3bae3851d6fc6dc27
+
+36.times do 
+    Patient.create([{
+    name: Faker::Name.name,
+    gender: Faker::Gender.binary_type
+    }])
+    end
+    
+    
+    36.times do 
+    Review.create([{
+    rating: Faker::Number.within(range: 1..10)
+    content: Faker::String.random(length: 15..45)
+    }])
