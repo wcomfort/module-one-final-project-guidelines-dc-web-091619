@@ -8,7 +8,7 @@ def get_input
     puts "Would you like to search for Doctors or write a review?"
     input = gets.chomp
     if input.downcase == 'doctors' 
-        seearch_by_attributes
+        search_specialty
     elsif input.downcase == 'review'
         write_review
     else 
@@ -16,21 +16,45 @@ def get_input
     end
 end
 
-def seearch_by_attributes
-    puts "How would to search: Specialty, Gender or Experience?"
-    user_input = gets.chomp
-end
-
 def search_specialty
     puts "What Specialty would you like to search for?"
+    input = gets.chomp
+    if doctors_specialties.include?(input)
+        puts "Here are all of the #{input.capitalize} Doctors!"
+        puts Doctor.sort_by_specialty(input)
+        search_by_attributes
+    else
+        puts "Specialty not available. Please enter a valid Specialty."
+        search_specialty
+    end
+end
+
+def search_by_attributes
+    puts "How would to search: Rating, Gender or Experience?"
+    user_input = gets.chomp
+    if  user_input == 'gender'
+        search_gender 
+    elsif user_input == 'experience'
+        search_experience
+    else
+        puts "Please enter a valid search term."
+    end
 end
 
 def search_gender
     "What gender Doctor would you like to see?"
+    input = gets.chomp
+    if input == 'male'
+        #return list of male docs
+    else 
+        #return list of female docs
+    end
 end
 
 def search_experience 
     "What is the minimum amount of experience in years you want your Doctor to have?"
+    input = gets.chomp.to_i
+    # Doctors.where(experience: > input)
 end
 
 def write_review
