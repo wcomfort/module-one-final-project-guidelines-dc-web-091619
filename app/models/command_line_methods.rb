@@ -52,3 +52,5 @@ def what_else
     puts "Would you like to do something else?"
     get_input 
 end
+
+puts "hi"
