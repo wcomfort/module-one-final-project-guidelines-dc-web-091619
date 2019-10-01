@@ -3,6 +3,9 @@ require "pry"
 class Doctor < ActiveRecord::Base
     has_many :reviews
   
+    # wrote method this wasy becuase the user input and data retrieved 
+    # from the db should be both in downcase. Other than that, could have been
+    # Doctor.where(specialty: "specialty_input")
     def self.sort_by_specialty(specialty_input)
         docs = []
         Doctor.all.each do |doctor|
