@@ -50,7 +50,7 @@ class Doctor < ActiveRecord::Base
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted = docs.sort_by{|doctor| doctor.experience}.reverse
         puts sorted.map{|doctor| "#{doctor.name} has #{doctor.experience} years of experience"}
-
+    end
 
     def self.highest_rating
         Review.order(rating: :desc).first.doctor
