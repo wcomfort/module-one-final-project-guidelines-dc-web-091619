@@ -4,15 +4,6 @@ class Doctor < ActiveRecord::Base
     has_many :reviews
     has_many :patients, through: :reviews
 
-    attr_reader :name, :gender, :specialty, :experience
-
-    def initialize
-        @name = name
-        @gender = gender
-        @specialty = specialty
-        @experience = experience
-    end
-
     def sort_highest_rating
 
     end
