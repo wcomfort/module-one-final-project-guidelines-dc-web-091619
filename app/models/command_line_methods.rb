@@ -44,20 +44,26 @@ def search_by_attributes
     end
 end
 
+def search_rating
+    puts "What is the minimum rating (1-10) you would like to see?"
+    input = gets.chomp.to_i
+    Doctor.rating
+end
+
 def search_gender
-    "What gender Doctor would you like to see?"
+  puts  "What gender Doctor would you like to see?"
     input = gets.chomp
     if input == 'male'
-        #return list of male docs
+        Doctor.male
     else 
-        #return list of female docs
+        Doctor.female
     end
 end
 
 def search_experience 
-    "What is the minimum amount of experience in years you want your Doctor to have?"
+   puts "What is the minimum amount of experience in years you want your Doctor to have?"
     input = gets.chomp.to_i
-    # Doctors.where(experience: > input)
+    Doctor.experience 
 end
 
 def write_review

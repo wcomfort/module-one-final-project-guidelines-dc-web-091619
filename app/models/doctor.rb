@@ -37,30 +37,20 @@ class Doctor < ActiveRecord::Base
     end
 
     def self.male(specialty_input)
+        m = Doctor.sort_by_specialty(specialty_input)
+        puts m.select{|doctor| doctor.gender == "M"}.map(&:name)  
     end
 
-
     def self.female(specialty_input)
-
+        f = Doctor.sort_by_specialty(specialty_input)
+        puts f.select{|doctor| doctor.gender == "F"}.map(&:name)
     end
 
     def self.experience(specialty_input, experience_input) #specialized docs over that experience year
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted = docs.sort_by{|doctor| doctor.experience}.reverse
         puts sorted.map{|doctor| "#{doctor.name} has #{doctor.experience} years of experience"}
-    end
 
-
-    def self.sort_by_experience(specialty_input)
-        docs = []
-        Doctor.all.each do |doctor|
-            if doctor[:specialty].downcase == specialty_input.downcase
-                docs << doctor
-            else false
-            end
-        end
-        docs
-    end
 
     def self.highest_rating
         Review.order(rating: :desc).first.doctor
