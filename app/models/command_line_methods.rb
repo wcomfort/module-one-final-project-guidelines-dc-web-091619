@@ -19,9 +19,9 @@ end
 def search_specialty
     puts "What Specialty would you like to search for?"
     input = gets.chomp
-    if doctors_specialties.include?(input)
+    if Doctor.doctors_specialties.include?(input)
         puts "Here are all of the #{input.capitalize} Doctors!"
-        puts Doctor.sort_by_specialty(input)
+        puts Doctor.sort_by_specialty(input).map(&:name)
         search_by_attributes
     else
         puts "Specialty not available. Please enter a valid Specialty."
@@ -32,12 +32,15 @@ end
 def search_by_attributes
     puts "How would to search: Rating, Gender or Experience?"
     user_input = gets.chomp
-    if  user_input == 'gender'
+    if user_input == 'rating'
+        search_rating
+    elsif user_input == 'gender'
         search_gender 
     elsif user_input == 'experience'
         search_experience
     else
         puts "Please enter a valid search term."
+        search_by_attributes
     end
 end
 

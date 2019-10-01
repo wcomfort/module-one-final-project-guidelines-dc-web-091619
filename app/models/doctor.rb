@@ -3,7 +3,7 @@ require "pry"
 class Doctor < ActiveRecord::Base
     has_many :reviews
   
-    def doctors_specialties
+    def self.doctors_specialties
         Doctor.all.map(&:specialty).uniq
     end
 
@@ -25,20 +25,29 @@ class Doctor < ActiveRecord::Base
         rating_array = Review.where(doctor_id: self.id).map(&:rating)
         if rating_array.length > 0
             rating_array.sum / rating_array.length
-        else puts "There is no rating for the doctor."
+        else puts "There is no rating for the doctor #{self.name}."
+            return 0
         end
     end
     
-    def self.sort_by_rating(rating_input) #specialized docs over that rating
-        
+    def self.rating(specialty_input)
+        docs = Doctor.sort_by_specialty(specialty_input)
+        sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
+        puts sorted_doc.map{|doc| "#{doc.name} has a average rating of #{doc.ave_rating_of_doctor}"}\
     end
 
-    def self.doctor_by_gender(gender_input) #specialized docs in that gender
-        
+    def self.male(specialty_input)
     end
 
-    def self.doctor_by_experince(experience_input) #specialized docs over that experience year
-        
+
+    def self.female(specialty_input)
+
+    end
+
+    def self.experience(specialty_input, experience_input) #specialized docs over that experience year
+        docs = Doctor.sort_by_specialty(specialty_input)
+        sorted = docs.sort_by{|doctor| doctor.experience}.reverse
+        puts sorted.map{|doctor| "#{doctor.name} has #{doctor.experience} years of experience"}
     end
 
 
