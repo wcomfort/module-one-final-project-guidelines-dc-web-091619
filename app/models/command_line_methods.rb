@@ -18,10 +18,12 @@ end
 
 def search_specialty
     puts "What Specialty would you like to search for?"
-    input = gets.chomp
+    input = gets.chomp.to_s 
     if Doctor.doctors_specialties.include?(input)
         puts "Here are all of the #{input.capitalize} Doctors!"
-        puts Doctor.sort_by_specialty(input)
+        docs = Doctor.sort_by_specialty(input)
+        docs.map{|doctor| doctor.name}
+        binding.pry
         search_by_attributes
     else
         puts "Specialty not available. Please enter a valid Specialty."
@@ -44,8 +46,6 @@ def search_by_attributes
 end
 
 def search_rating
-    puts "What is the minimum rating (1-10) you would like to see?"
-    input = gets.chomp.to_i
     Doctor.rating
 end
 
