@@ -31,6 +31,8 @@ Doctor.find_or_create_by(name: "John Cochran", gender: "M", specialty: "Neurolog
 Doctor.find_or_create_by(name: "Peter MacArthur", gender: "M", specialty: "Family Medicine", experience: 8)
 Doctor.find_or_create_by(name: "Paulina Gorney Brown", gender: "F", specialty: "Urology", experience: 9)
 
+
+
 # Loudoun Hospital
 Doctor.find_or_create_by(name: "Kim Freeman", gender: "F", specialty: "Obstetrics and Gynecology", experience: 22)
 Doctor.find_or_create_by(name: "Michele Justice", gender: "F", specialty: "Obstetrics and Gynecology", experience: 11)
@@ -61,5 +63,4 @@ Doctor.find_or_create_by(name: "Rami Tabbarah", gender: "F", specialty: "Obstetr
     patient_id: Patient.all.ids.sample,
     doctor_id: Doctor.all.ids.sample
     }])
-
-end
+    end
