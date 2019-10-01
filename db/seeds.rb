@@ -61,7 +61,4 @@ Doctor.find_or_create_by(name: "Rami Tabbarah", gender: "F", specialty: "Obstetr
     patient_id: Patient.all.ids.sample,
     doctor_id: Doctor.all.ids.sample
     }])
-    # patient and doctor id change
-    # patient_id: Faker::Number.within(range: Patient.all.ids),
-    # doctor_id: Faker::Number.within(range: Doctor.all.ids)
 end
