@@ -3,7 +3,7 @@ require "pry"
 class Doctor < ActiveRecord::Base
     has_many :reviews
   
-    def doctors_specialties
+    def self.doctors_specialties
         Doctor.all.map(&:specialty).uniq
     end
 
@@ -29,18 +29,24 @@ class Doctor < ActiveRecord::Base
         end
     end
     
-    def self.sort_by_rating(rating_input) #specialized docs over that rating
-        
+    def self.rating(specialty_input, rating_input) #specialized docs over that rating
+        docs = Doctor.sort_by_specialty(specialty_input)
+        docs.where
     end
 
-    def self.doctor_by_gender(gender_input) #specialized docs in that gender
-        
+    def self.male(specialty_input)
+        m = Doctor.sort_by_specialty(specialty_input)
+        puts m.select{|doctor| doctor.gender == "M"}.map(&:name)  
     end
 
-    def self.doctor_by_experince(experience_input) #specialized docs over that experience year
-        
+    def self.female(specialty_input)
+        f = Doctor.sort_by_specialty(specialty_input)
+        puts f.select{|doctor| doctor.gender == "F"}.map(&:name)
     end
 
+    def self.experience(specialty_input, experience_input) #specialized docs over that experience year
+
+    end
 
     def self.sort_by_experience(specialty_input)
         docs = []

@@ -19,7 +19,7 @@ end
 def search_specialty
     puts "What Specialty would you like to search for?"
     input = gets.chomp
-    if doctors_specialties.include?(input)
+    if Doctor.doctors_specialties.include?(input)
         puts "Here are all of the #{input.capitalize} Doctors!"
         puts Doctor.sort_by_specialty(input)
         search_by_attributes
@@ -32,7 +32,9 @@ end
 def search_by_attributes
     puts "How would to search: Rating, Gender or Experience?"
     user_input = gets.chomp
-    if  user_input == 'gender'
+    if user_input == 'rating'
+        search_rating
+    elsif user_input == 'gender'
         search_gender 
     elsif user_input == 'experience'
         search_experience
@@ -41,20 +43,26 @@ def search_by_attributes
     end
 end
 
+def search_rating
+    puts "What is the minimum rating (1-10) you would like to see?"
+    input = gets.chomp.to_i
+    Doctor.rating
+end
+
 def search_gender
-    "What gender Doctor would you like to see?"
+  puts  "What gender Doctor would you like to see?"
     input = gets.chomp
     if input == 'male'
-        #return list of male docs
+        Doctor.male
     else 
-        #return list of female docs
+        Doctor.female
     end
 end
 
 def search_experience 
-    "What is the minimum amount of experience in years you want your Doctor to have?"
+   puts "What is the minimum amount of experience in years you want your Doctor to have?"
     input = gets.chomp.to_i
-    # Doctors.where(experience: > input)
+    Doctor.experience 
 end
 
 def write_review
