@@ -32,13 +32,20 @@ end
 def search_by_attributes
     puts "How would to search: Rating, Gender or Experience?"
     user_input = gets.chomp
-    if  user_input == 'gender'
+    if user_input == 'rating'
+        search_rating
+    elsif user_input == 'gender'
         search_gender 
     elsif user_input == 'experience'
         search_experience
     else
         puts "Please enter a valid search term."
+        search_by_attributes
     end
+end
+
+def search_rating
+
 end
 
 def search_gender
