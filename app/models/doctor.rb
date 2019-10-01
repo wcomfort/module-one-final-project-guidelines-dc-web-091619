@@ -4,7 +4,8 @@ class Doctor < ActiveRecord::Base
     has_many :reviews
   
     def self.doctors_specialties
-        Doctor.all.map(&:specialty).uniq
+        arr = Doctor.all.map(&:specialty).uniq
+        arr.map{|spe| spe.downcase}
     end
 
     # wrote method this wasy becuase the user input and data retrieved 
@@ -25,15 +26,29 @@ class Doctor < ActiveRecord::Base
         rating_array = Review.where(doctor_id: self.id).map(&:rating)
         if rating_array.length > 0
             rating_array.sum / rating_array.length
-        else puts "There is no rating for the doctor #{self.name}."
+        else 
+            # puts "There is no rating for the doctor #{self.name}."
             return 0
         end
     end
     
+    # def self.rating(specialty_input)
+    #     docs = Doctor.sort_by_specialty(specialty_input)
+    #     sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
+    #     puts sorted_doc.map{|doc| "#{doc.name} has a average rating of #{doc.ave_rating_of_doctor}"}\
+    # end
+
     def self.rating(specialty_input)
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
-        puts sorted_doc.map{|doc| "#{doc.name} has a average rating of #{doc.ave_rating_of_doctor}"}\
+        mess = sorted_doc.map do |doc| 
+                if doc.ave_rating_of_doctor > 0
+                   "#{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
+                else "#{doc.name} has no ratings."
+                end
+               end
+        puts mess
+
     end
 
     def self.male(specialty_input)
@@ -46,11 +61,11 @@ class Doctor < ActiveRecord::Base
         puts f.select{|doctor| doctor.gender == "F"}.map(&:name)
     end
 
-    def self.experience(specialty_input, experience_input) #specialized docs over that experience year
+    def self.experience(specialty_input) #specialized docs over that experience year
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted = docs.sort_by{|doctor| doctor.experience}.reverse
         puts sorted.map{|doctor| "#{doctor.name} has #{doctor.experience} years of experience"}
-
+    end
 
     def self.highest_rating
         Review.order(rating: :desc).first.doctor
