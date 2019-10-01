@@ -63,4 +63,4 @@ Doctor.find_or_create_by(name: "Rami Tabbarah", gender: "F", specialty: "Obstetr
     patient_id: Patient.all.ids.sample,
     doctor_id: Doctor.all.ids.sample
     }])
-    end
+end
