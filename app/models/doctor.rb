@@ -5,7 +5,7 @@ class Doctor < ActiveRecord::Base
   
     def self.doctors_specialties
         arr = Doctor.all.map(&:specialty).uniq
-        arr.map{|spe| spe.downcase}
+        arr.map{|spe|spe.downcase}
     end
 
     def self.sort_by_specialty(specialty_input)
@@ -33,7 +33,7 @@ class Doctor < ActiveRecord::Base
         sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
         mess = sorted_doc.map do |doc| 
                 if doc.ave_rating_of_doctor > 0
-                   "#{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
+                   "  - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
                 else "#{doc.name} has no ratings."
                 end
                end
@@ -42,12 +42,12 @@ class Doctor < ActiveRecord::Base
 
     def self.male(specialty_input)
         m = Doctor.sort_by_specialty(specialty_input)
-        puts m.select{|doctor| doctor.gender == "M"}.map(&:name)  
+        puts m.select{|doctor| doctor.gender == "Male"}.map(&:name).uniq
     end
 
     def self.female(specialty_input)
         f = Doctor.sort_by_specialty(specialty_input)
-        puts f.select{|doctor| doctor.gender == "F"}.map(&:name)
+        puts f.select{|doctor| doctor.gender == "Female"}.map(&:name).uniq
     end
 
     def self.experience(specialty_input) #specialized docs over that experience year
@@ -65,17 +65,23 @@ class Doctor < ActiveRecord::Base
     end
 
     def self.id_name_match(doctor_id)
-       puts Doctor.find(doctor_id).name 
+        doc = Doctor.find(doctor_id)
+        puts "#{doc.name}, specialty is #{doc.specialty}"
     end
 
-    def doc_near_zip(zip_input)
+    def self.doc_near_zip(zip_input)
         docs = Doctor.where(zip: ((zip_input - 5)..(zip_input + 5)))
-        message = docs.map {|doc| "#{doc.name} is at ZIP code #{doc.zip}"}
-        puts message
+        if docs.length > 0
+            message = docs.map {|doc| "#{doc.name} is at ZIP code #{doc.zip}"}
+            puts message
+        else 
+            puts "There are no doctors near you."
+            return 0
+        end
     end
     
     def self.print_doc_info(doc_name)
         doc = Doctor.find_by(name: doc_name)
-        puts "#{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years and 3located at ZIP code #{doc.zip}."
+        puts "#{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years, average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}."
     end
 end

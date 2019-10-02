@@ -26,8 +26,11 @@ def search_doctors
         puts "Please enter your Patient ID."
         input = gets.chomp 
         puts "Here are your Doctors."
-        Patient.docs_seen(input)
-        ask_whats_next
+        if Patient.docs_seen(input) == 0
+            ask_whats_next
+        else
+            show_doc_info
+        end
     else
         puts "Please enter 'specialty' or 'my doctors'."
         search_doctors
@@ -89,8 +92,10 @@ def search_experience
 end
 
 def search_zip(zip_input)
-    Doctor.doc_near_zip(zip_input)
+    if Doctor.doc_near_zip(zip_input) != 0
     show_doc_info
+    else ask_whats_next
+    end
 end
 
 def write_review
