@@ -59,13 +59,13 @@ class Doctor < ActiveRecord::Base
         puts sorted.map{|doctor| " - #{doctor.name} has #{doctor.experience} years of experience"}
     end
 
-    def self.highest_rating
-        Review.order(rating: :desc).first.doctor
-    end
+    # def self.highest_rating
+    #     Review.order(rating: :desc).first.doctor
+    # end
 
-    def self.sort_most_experienced
-        Doctor.order(experience: :desc).first
-    end
+    # def self.sort_most_experienced
+    #     Doctor.order(experience: :desc).first
+    # end
 
     def self.id_name_match(doctor_id)
         doc = Doctor.find(doctor_id)
