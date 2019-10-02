@@ -12,7 +12,7 @@ class Patient < ActiveRecord::Base
         else args[:rating] = args[:rating]
         end
         Review.find_or_create_by(args)
-     end
+    end
 
     def num_of_reviews
         self.reviews.count 
@@ -33,7 +33,7 @@ class Patient < ActiveRecord::Base
         end
     end
 
-    def rating_constraint(rating)
+    def self.rating_constraint(rating)
         if rating > 10
             10
         elsif rating < 1
@@ -42,7 +42,7 @@ class Patient < ActiveRecord::Base
         end
     end
 
-    def edit_review(id)
+    def self.edit_review(id)
         my_review
         id = gets.chomp.to_i
         edit = Review.find(id)
@@ -61,6 +61,13 @@ class Patient < ActiveRecord::Base
             edit.update(content: content)
             edit.save
         end 
+    end
+
+    def self.my_review(user_id)
+        revs = Review.where(patient_id: user_id)
+        revs.map do |rev|
+            puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}}"
+        end
     end
 
 end

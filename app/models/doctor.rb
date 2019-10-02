@@ -34,7 +34,7 @@ class Doctor < ActiveRecord::Base
         sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
         mess = sorted_doc.map do |doc| 
                 if doc.ave_rating_of_doctor > 0
-                   "  - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
+                   " - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
                 else " - #{doc.name} has no ratings."
                 end
                end
