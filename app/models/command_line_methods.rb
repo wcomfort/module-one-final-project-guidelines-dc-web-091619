@@ -36,7 +36,7 @@ end
 
 def search_specialty
     puts "What Specialty would you like to search for?"
-    puts Doctor.doctors_specialties
+     Doctor.doctors_specialties
     $input = gets.chomp.downcase
     if Doctor.doctors_specialties.include?($input)
         puts "Here are all of the #{$input.capitalize} Doctors!"
