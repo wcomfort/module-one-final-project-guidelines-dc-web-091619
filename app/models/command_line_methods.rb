@@ -42,7 +42,7 @@ def search_by_attributes
         search_experience
     elsif user_input == 'zipcode' || user_input == 'zip'
         puts "Plase enter your zicode, we will find doctors near you!"
-        $zip_input = gets.chomp.downcase
+        $zip_input = gets.chomp.to_i
         search_zip($zip_input)
     else
         puts "Please enter a valid search term."
@@ -52,7 +52,7 @@ end
 
 def search_rating
     Doctor.rating($input)
-    ask_whats_next
+    show_doc_info
 end
 
 def search_gender
@@ -63,17 +63,17 @@ def search_gender
     else input == 'female' || input == 'f'
         Doctor.female($input)
     end
-    ask_whats_next
+    show_doc_info
 end
 
 def search_experience 
     Doctor.experience($input)
-    ask_whats_next
+    show_doc_info
 end
 
 def search_zip(zip_input)
-    doc_near_zip(zip_input)
-    ask_whats_next
+    Doctor.doc_near_zip(zip_input)
+    show_doc_info
 end
 
 def write_review
@@ -85,13 +85,19 @@ def write_review
     puts "Please rate your experience from 1 to 10."
     rating = gets.chomp.to_i
     puts "Please enter a review for your Doctor."
-    content = gets.chomp.to_s
+    content = gets.chomp
     patient = Patient.find(patient_id)
     patient.create_review(rating: rating, content: content, patient_id: patient_id, doctor_id: doctor_id)
     puts "Thank you for writing a review!"
     ask_whats_next
 end
 
+def show_doc_info
+    puts "Please choose a doctor who you want to see the information."
+    doc_name = gets.chomp
+    Doctor.print_doc_info(doc_name)
+    ask_whats_next
+end
 
 def ask_whats_next
     puts "What would you like to do next? 1.Search new doctor, 2.Write a review, 3.Exit the search"
