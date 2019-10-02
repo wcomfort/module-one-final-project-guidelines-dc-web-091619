@@ -110,7 +110,12 @@ def write_review
     puts "Please enter a review for your Doctor."
     content = gets.chomp
     patient = Patient.find(patient_id)
-    patient.create_review(rating: rating, content: content, patient_id: patient_id, doctor_id: doctor_id)
+    new_review = patient.create_review(rating: rating, content: content, patient_id: patient_id, doctor_id: doctor_id)
+    puts "New Review : 
+    'Patient ID : #{new_review.patient_id}'
+    'Doctor ID : #{new_review.doctor_id}'
+    'Rating : #{new_review.rating}'
+    'Content : #{new_review.content}'"
     puts "Thank you for writing a review!"
     ask_whats_next
 end
