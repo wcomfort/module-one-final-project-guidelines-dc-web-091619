@@ -8,9 +8,6 @@ class Doctor < ActiveRecord::Base
         arr.map{|spe| spe.downcase}
     end
 
-    # wrote method this wasy becuase the user input and data retrieved 
-    # from the db should be both in downcase. Other than that, could have been
-    # Doctor.where(specialty: "specialty_input")
     def self.sort_by_specialty(specialty_input)
         docs = []
         Doctor.all.each do |doctor|
@@ -27,17 +24,10 @@ class Doctor < ActiveRecord::Base
         if rating_array.length > 0
             rating_array.sum / rating_array.length
         else 
-            # puts "There is no rating for the doctor #{self.name}."
             return 0
         end
     end
     
-    # def self.rating(specialty_input)
-    #     docs = Doctor.sort_by_specialty(specialty_input)
-    #     sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
-    #     puts sorted_doc.map{|doc| "#{doc.name} has a average rating of #{doc.ave_rating_of_doctor}"}\
-    # end
-
     def self.rating(specialty_input)
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
@@ -48,7 +38,6 @@ class Doctor < ActiveRecord::Base
                 end
                end
         puts mess
-
     end
 
     def self.male(specialty_input)
@@ -77,6 +66,12 @@ class Doctor < ActiveRecord::Base
 
     def self.id_name_match(doctor_id)
        puts Doctor.find(doctor_id).name 
+    end
+
+    def doc_near_zip(zip_input)
+        docs = Doctor.where(zip: ((zip_input - 5)..(zip_input + 5)))
+        message = docs.map {|doc| "#{doc.name} is at ZIP code #{doc.zip}"}
+        puts message
     end
     
 end

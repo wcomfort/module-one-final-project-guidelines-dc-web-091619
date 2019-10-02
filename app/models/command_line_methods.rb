@@ -35,6 +35,7 @@ end
 
 def search_specialty
     puts "What Specialty would you like to search for?"
+    puts Doctor.doctors_specialties
     $input = gets.chomp.downcase
     if Doctor.doctors_specialties.include?($input)
         puts "Here are all of the #{$input.capitalize} Doctors!"
@@ -47,7 +48,7 @@ def search_specialty
 end
 
 def search_by_attributes
-    puts "How would to search: Rating, Gender or Experience?"
+    puts "How would to search: Rating, Gender, Experience or ZIPcode?"
     user_input = gets.chomp.downcase
     if user_input == 'rating'
         search_rating
@@ -55,6 +56,10 @@ def search_by_attributes
         search_gender 
     elsif user_input == 'experience'
         search_experience
+    elsif user_input == 'zipcode' || user_input == 'zip'
+        puts "Plase enter your zicode, we will find doctors near you!"
+        $zip_input = gets.chomp.downcase
+        search_zip($zip_input)
     else
         puts "Please enter a valid search term."
         search_by_attributes
@@ -79,6 +84,11 @@ end
 
 def search_experience 
     Doctor.experience($input)
+    ask_whats_next
+end
+
+def search_zip(zip_input)
+    doc_near_zip(zip_input)
     ask_whats_next
 end
 

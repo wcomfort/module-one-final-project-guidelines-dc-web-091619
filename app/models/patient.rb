@@ -29,5 +29,3 @@ class Patient < ActiveRecord::Base
     end
 
 end
-# pa = Patient.find(3)
-# a.create_review(rating: 7, content: "hi", patient_id: 3, doctor_id: 5)
