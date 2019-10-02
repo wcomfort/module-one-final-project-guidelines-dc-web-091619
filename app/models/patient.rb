@@ -21,6 +21,13 @@ class Patient < ActiveRecord::Base
     def self.sort_most_reviews
         Patient.all.sort_by{|patient| patient.num_of_reviews}.reverse
     end
+
+    def self.docs_seen(id)
+        reviews = Review.where(patient_id: id)
+        dr_id = reviews.map {|review| review.doctor_id}
+        dr_id.each {|id| Doctor.id_name_match(id)}
+    end
+
 end
 # pa = Patient.find(3)
 # a.create_review(rating: 7, content: "hi", patient_id: 3, doctor_id: 5)

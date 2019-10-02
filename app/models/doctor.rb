@@ -74,5 +74,9 @@ class Doctor < ActiveRecord::Base
     def self.sort_most_experienced
         Doctor.order(experience: :desc).first
     end
+
+    def self.id_name_match(doctor_id)
+       puts Doctor.find(doctor_id).name 
+    end
     
 end
