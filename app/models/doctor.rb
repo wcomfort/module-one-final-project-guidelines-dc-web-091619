@@ -64,7 +64,11 @@ class Doctor < ActiveRecord::Base
         Doctor.order(experience: :desc).first
     end
 
-    def self.doc_near_zip(zip_input)
+    def self.id_name_match(doctor_id)
+       puts Doctor.find(doctor_id).name 
+    end
+
+    def doc_near_zip(zip_input)
         docs = Doctor.where(zip: ((zip_input - 5)..(zip_input + 5)))
         message = docs.map {|doc| "#{doc.name} is at ZIP code #{doc.zip}"}
         puts message

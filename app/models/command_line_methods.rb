@@ -8,12 +8,28 @@ def get_input
     puts "Would you like to search for Doctors or write a review?"
     input = gets.chomp
     if input.downcase == 'doctors' 
-        search_specialty
+        search_doctors
     elsif input.downcase == 'review'
         write_review
     else 
-        puts "Please enter 'Doctors' or 'Review'."
-        get_input 
+        puts "Please enter 'Doctors' or 'Review'." 
+        get_input
+    end
+end
+
+def search_doctors
+    puts "Would you like to search for a specialty or your Doctors?"
+    input = gets.chomp
+    if input.downcase == 'specialty'
+        search_specialty
+    elsif input.downcase == 'my doctors'
+        puts "Please enter your Patient ID."
+        input = gets.chomp 
+        Patient.docs_seen(input)
+        ask_whats_next
+    else
+        puts "Please enter 'specialty' or 'my doctors'."
+        search_doctors
     end
 end
 
@@ -103,7 +119,7 @@ def ask_whats_next
     puts "What would you like to do next? 1.Search new doctor, 2.Write a review, 3.Exit the search"
     input = gets.chomp.downcase
     if input == "1" || input == "search new doctor"
-        search_specialty
+        search_doctors
     elsif input == "2" || input == "write a review"
         write_review
     elsif input == "3" || input == "exit the search"
