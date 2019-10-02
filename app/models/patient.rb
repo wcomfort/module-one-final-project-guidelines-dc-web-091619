@@ -22,5 +22,3 @@ class Patient < ActiveRecord::Base
         Patient.all.sort_by{|patient| patient.num_of_reviews}.reverse
     end
 end
-# pa = Patient.find(3)
-# a.create_review(rating: 7, content: "hi", patient_id: 3, doctor_id: 5)

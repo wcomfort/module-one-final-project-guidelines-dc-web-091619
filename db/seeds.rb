@@ -23,7 +23,7 @@ Doctor.find_or_create_by(name: "Scott Vejcik", gender: "M", specialty: "Family M
 Doctor.find_or_create_by(name: "Catherine Pipan", gender: "F", specialty: "Family Medicine", experience: 28)
 Doctor.find_or_create_by(name: "Brett Holt", gender: "M", specialty: "Urology", experience: 13)
 Doctor.find_or_create_by(name: "Rami Tabbarah", gender: "F", specialty: "Obstetrics and Gynecology", experience: 13)
-Doctor.find_or_create_by(name: "Aanchal Jain", gender: "M", specialty: "Aanchal Jain", experience: 11)
+Doctor.find_or_create_by(name: "Aanchal Jain", gender: "M", specialty: "Neurology", experience: 11)
 Doctor.find_or_create_by(name: "Daniele Nunez", gender: "M", specialty: "Family Medicine", experience: 39)
 Doctor.find_or_create_by(name: "Z Chris", gender: "M", specialty: "Internal Medicine", experience: 33)
 Doctor.find_or_create_by(name: "Edward Chang", gender: "M", specialty: "Sports Medicine", experience: 10)
