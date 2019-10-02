@@ -107,19 +107,35 @@ end
 
 
 def review_methods
-    "Would you like to 1.View/edit the reviews you have written, 2.Write a new review."
+    puts "Would you like to 1.View/edit the reviews you have written, 2.Write a new review."
     review_input = gets.chomp.to_i
     if review_input == 1
         puts "Please enter your patient ID."
         p_id = gets.chomp.to_i
-        my_review(p_id)
+        Patient.my_review(p_id)
+        option_edit_review
     elsif review_input == 2
         write_review
-    else puts "Please enter the option number as 1, 2, or 3."
+    else puts "Please enter the option number as 1 or 2."
+        review_methods
+    end
+end
+
+def option_edit_review
+    puts "Would you like to edit any review? Y/N"
+    answer = gets.chomp.downcase
+    if answer == "y" || answer == "yes"
+        puts "Please enter the ID of the review you want to edit."
+        id = gets.chomp.to_i
+        Patient.edit_review(id)
+        ask_whats_next
+    elsif answer == "n" || answer == "no"
+        ask_whats_next
+    else puts "Please answer Yes or No."
+        option_edit_review
     end
 end
     
-end
 
 def write_review
     puts "Start your review."
@@ -153,11 +169,11 @@ def show_doc_info
 end
 
 def ask_whats_next
-    puts "What would you like to do next? 1.Search new doctor, 2.Write a review, 3.Exit the search"
+    puts "What would you like to do next? 1.Search new doctor, 2.Write/edit a review, 3.Exit the search"
     input = gets.chomp.downcase
     if input == "1" || input == "search new doctor"
         search_doctors
-    elsif input == "2" || input == "write a review"
+    elsif input == "2" || input == "write/edit a review"
         write_review
     elsif input == "3" || input == "exit the search"
         exit_search
