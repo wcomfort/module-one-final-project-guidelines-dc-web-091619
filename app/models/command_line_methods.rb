@@ -5,17 +5,21 @@ def welcome
 end
 
 def get_input
-    puts "Would you like to search for Doctors or write a review?"
+    puts "Would you like to search for Doctors or write/edit reviews?"
     input = gets.chomp
     if input.downcase == 'doctors' 
         search_doctors
     elsif input.downcase == 'review'
-        write_review
+        review_methods
     else 
         puts "Please enter 'Doctors' or 'Review'." 
         get_input
     end
 end
+
+
+
+
 
 def search_doctors
     puts "Would you like to search for a specialty or your Doctors?"
@@ -97,6 +101,24 @@ def search_zip(zip_input)
     show_doc_info
     else ask_whats_next
     end
+end
+
+
+
+
+def review_methods
+    "Would you like to 1.View/edit the reviews you have written, 2.Write a new review."
+    review_input = gets.chomp.to_i
+    if review_input == 1
+        puts "Please enter your patient ID."
+        p_id = gets.chomp.to_i
+        my_review(p_id)
+    elsif review_input == 2
+        write_review
+    else puts "Please enter the option number as 1, 2, or 3."
+    end
+end
+    
 end
 
 def write_review

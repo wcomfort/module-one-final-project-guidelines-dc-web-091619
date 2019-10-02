@@ -12,7 +12,7 @@ class Patient < ActiveRecord::Base
         else args[:rating] = args[:rating]
         end
         Review.find_or_create_by(args)
-     end
+    end
 
     def num_of_reviews
         self.reviews.count 
@@ -30,6 +30,13 @@ class Patient < ActiveRecord::Base
         else 
         dr_id = reviews.map {|review| review.doctor_id}.uniq
         dr_id.each {|id| Doctor.id_name_match(id)}
+        end
+    end
+
+    def my_review(user_id)
+        revs = Review.where(patient_id: user_id)
+        revs.map do |rev|
+            puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}}"
         end
     end
 
