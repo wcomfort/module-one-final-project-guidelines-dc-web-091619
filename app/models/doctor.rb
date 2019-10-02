@@ -5,7 +5,7 @@ class Doctor < ActiveRecord::Base
   
     def self.doctors_specialties
         arr = Doctor.all.map(&:specialty).uniq
-        arr.map{|spe| puts "- #{spe.downcase}" }
+        arr.map{|spe| puts " - #{spe.downcase}" }
         arr.map{|spe| spe.downcase}
     end
 
@@ -43,18 +43,20 @@ class Doctor < ActiveRecord::Base
 
     def self.male(specialty_input)
         m = Doctor.sort_by_specialty(specialty_input)
-        puts m.select{|doctor| doctor.gender == "Male"}.map(&:name).uniq
+        name = m.select{|doctor| doctor.gender == "Male"}.map(&:name).uniq
+        name.each {|name| puts " - #{name}"}
     end
 
     def self.female(specialty_input)
         f = Doctor.sort_by_specialty(specialty_input)
-        puts f.select{|doctor| doctor.gender == "Female"}.map(&:name).uniq
+        name = f.select{|doctor| doctor.gender == "Female"}.map(&:name).uniq
+        name.each {|name| puts " - #{name}"}
     end
 
     def self.experience(specialty_input) #specialized docs over that experience year
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted = docs.sort_by{|doctor| doctor.experience}.reverse
-        puts sorted.map{|doctor| "#{doctor.name} has #{doctor.experience} years of experience"}
+        puts sorted.map{|doctor| " - #{doctor.name} has #{doctor.experience} years of experience"}
     end
 
     def self.highest_rating
@@ -67,13 +69,13 @@ class Doctor < ActiveRecord::Base
 
     def self.id_name_match(doctor_id)
         doc = Doctor.find(doctor_id)
-        puts "#{doc.name}, specialty is #{doc.specialty}"
+        puts " - #{doc.name}, specialty is #{doc.specialty}"
     end
 
     def self.doc_near_zip(zip_input)
         docs = Doctor.where(zip: ((zip_input - 5)..(zip_input + 5)))
         if docs.length > 0
-            message = docs.map {|doc| "#{doc.name} is at ZIP code #{doc.zip}"}
+            message = docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}"}
             puts message
         else 
             puts "There are no doctors near you."
@@ -83,6 +85,10 @@ class Doctor < ActiveRecord::Base
     
     def self.print_doc_info(doc_name)
         doc = Doctor.find_by(name: doc_name)
-        puts "#{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years, average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}."
+        if doc
+        puts " - #{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years, average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}."
+        else puts "Please enter a valid doctor's name."
+            return 0
+        end
     end
 end

@@ -43,7 +43,8 @@ def search_specialty
     $input = gets.chomp.downcase
     if Doctor.doctors_specialties.include?($input)
         puts "Here are all of the #{$input.capitalize} Doctors!"
-        puts Doctor.sort_by_specialty($input).map(&:name)
+        name_arr = Doctor.sort_by_specialty($input).map(&:name).uniq
+        name_arr.each {|name| puts " - #{name}"}
         search_by_attributes
     else
         puts "Specialty not available. Please enter a valid Specialty."
@@ -117,8 +118,11 @@ end
 def show_doc_info
     puts "Please choose a doctor who you want to see the information."
     doc_name = gets.chomp
-    Doctor.print_doc_info(doc_name)
+    info = Doctor.print_doc_info(doc_name)
+    if info != 0
     ask_whats_next
+    else show_doc_info
+    end
 end
 
 def ask_whats_next
