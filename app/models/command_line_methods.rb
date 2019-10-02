@@ -117,7 +117,7 @@ end
 
 def show_doc_info
     puts "Please choose a doctor who you want to see the information."
-    doc_name = gets.chomp
+    doc_name = gets.chomp.downcase
     info = Doctor.print_doc_info(doc_name)
     if info != 0
     ask_whats_next

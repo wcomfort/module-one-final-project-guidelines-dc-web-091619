@@ -35,7 +35,7 @@ class Doctor < ActiveRecord::Base
         mess = sorted_doc.map do |doc| 
                 if doc.ave_rating_of_doctor > 0
                    "  - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
-                else "#{doc.name} has no ratings."
+                else " - #{doc.name} has no ratings."
                 end
                end
         puts mess
@@ -44,13 +44,13 @@ class Doctor < ActiveRecord::Base
     def self.male(specialty_input)
         m = Doctor.sort_by_specialty(specialty_input)
         name = m.select{|doctor| doctor.gender == "Male"}.map(&:name).uniq
-        name.each {|name| puts " - #{name}"}
+        name.map {|name| puts " - #{name}"}
     end
 
     def self.female(specialty_input)
         f = Doctor.sort_by_specialty(specialty_input)
         name = f.select{|doctor| doctor.gender == "Female"}.map(&:name).uniq
-        name.each {|name| puts " - #{name}"}
+        name.map {|name| puts " - #{name}"}
     end
 
     def self.experience(specialty_input) #specialized docs over that experience year
@@ -84,7 +84,8 @@ class Doctor < ActiveRecord::Base
     end
     
     def self.print_doc_info(doc_name)
-        doc = Doctor.find_by(name: doc_name)
+        name_cap = doc_name.split.map{|name| name.capitalize}.join(" ")
+        doc = Doctor.find_by(name: name_cap)
         if doc
         puts " - #{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years, average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}."
         else puts "Please enter a valid doctor's name."
