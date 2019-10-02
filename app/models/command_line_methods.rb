@@ -25,6 +25,7 @@ def search_doctors
     elsif input.downcase == 'my doctors'
         puts "Please enter your Patient ID."
         input = gets.chomp 
+        puts "Here are your Doctors."
         Patient.docs_seen(input)
         ask_whats_next
     else
