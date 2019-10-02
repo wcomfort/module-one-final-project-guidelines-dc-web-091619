@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 3) do
     t.string "gender"
     t.string "specialty"
     t.integer "experience"
+    t.integer "zip"
   end
 
   create_table "patients", force: :cascade do |t|
