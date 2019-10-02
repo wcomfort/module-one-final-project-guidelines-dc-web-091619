@@ -33,4 +33,10 @@ class Patient < ActiveRecord::Base
         end
     end
 
+    def edit_review(id)
+        reviews = Review.where(patient_id: id)
+
+        binding.pry 
+    end
+
 end
