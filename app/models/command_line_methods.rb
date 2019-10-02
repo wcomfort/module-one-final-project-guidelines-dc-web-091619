@@ -1,7 +1,7 @@
 require_relative '../../config/environment.rb'
 
 def welcome
-    puts "Welcome to Doc on ya Blocc"
+    puts "Welcome to Doc on Ya Blocc"
 end
 
 def get_input
@@ -39,9 +39,9 @@ end
 
 def search_specialty
     puts "What Specialty would you like to search for?"
-     Doctor.doctors_specialties
+    specialties = Doctor.doctors_specialties
     $input = gets.chomp.downcase
-    if Doctor.doctors_specialties.include?($input)
+    if specialties.include?($input)
         puts "Here are all of the #{$input.capitalize} Doctors!"
         name_arr = Doctor.sort_by_specialty($input).map(&:name).uniq
         name_arr.each {|name| puts " - #{name}"}

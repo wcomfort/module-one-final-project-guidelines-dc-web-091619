@@ -11,7 +11,7 @@ class Patient < ActiveRecord::Base
             args[:rating] = 1
         else args[:rating] = args[:rating]
         end
-        Review.create(args)
+        Review.find_or_create_by(args)
      end
 
     def num_of_reviews
@@ -28,7 +28,7 @@ class Patient < ActiveRecord::Base
             puts "You have not seen any doctors yet."
             return 0
         else 
-        dr_id = reviews.map {|review| review.doctor_id}
+        dr_id = reviews.map {|review| review.doctor_id}.uniq
         dr_id.each {|id| Doctor.id_name_match(id)}
         end
     end
