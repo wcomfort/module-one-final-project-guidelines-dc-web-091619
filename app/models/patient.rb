@@ -24,8 +24,13 @@ class Patient < ActiveRecord::Base
 
     def self.docs_seen(id)
         reviews = Review.where(patient_id: id)
+        if reviews.length == 0
+            puts "You have not seen any doctors yet."
+            return 0
+        else 
         dr_id = reviews.map {|review| review.doctor_id}
         dr_id.each {|id| Doctor.id_name_match(id)}
+        end
     end
 
 end
