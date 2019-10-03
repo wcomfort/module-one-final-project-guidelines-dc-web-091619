@@ -25,7 +25,7 @@ class Review < ActiveRecord::Base
         if revs.length > 0
         revs.map(&:rating).sum / revs.length
         else 
-            puts "There is no review for the doctor specialty you choose."
+            puts "There is no review for the doctor specialty you choose.".red
         end
         
     end

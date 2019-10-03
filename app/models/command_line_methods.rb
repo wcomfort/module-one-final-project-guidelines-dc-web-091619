@@ -1,18 +1,18 @@
 require_relative '../../config/environment.rb'
 
 def welcome
-    puts "Welcome to Doc on Ya Blocc"
+    puts "Welcome to Doc on Ya Blocc!".red
 end
 
 def get_input
-    puts "Would you like to search for Doctors or write/edit reviews?"
+    puts "Would you like to search for Doctors or write/edit reviews?".green
     input = gets.chomp
     if input.downcase == 'doctors' 
         search_doctors
     elsif input.downcase == 'review'
         review_methods
     else 
-        puts "Please enter 'Doctors' or 'Review'." 
+        puts "Please enter 'Doctors' or 'Review'.".red
         get_input
     end
 end
@@ -22,42 +22,42 @@ end
 
 
 def search_doctors
-    puts "Would you like to search for a specialty or your Doctors?"
+    puts "Would you like to search for a specialty or your Doctors?".green
     input = gets.chomp
     if input.downcase == 'specialty'
         search_specialty
     elsif input.downcase == 'my doctors'
-        puts "Please enter your Patient ID."
+        puts "Please enter your Patient ID.".red
         input = gets.chomp 
-        puts "Here are your Doctors."
+        puts "Here are your Doctors.".red
         if Patient.docs_seen(input) == 0
             ask_whats_next
         else
             show_doc_info
         end
     else
-        puts "Please enter 'specialty' or 'my doctors'."
+        puts "Please enter 'specialty' or 'my doctors'.".cyan
         search_doctors
     end
 end
 
 def search_specialty
-    puts "What Specialty would you like to search for?"
+    puts "What Specialty would you like to search for?".green
     specialties = Doctor.doctors_specialties
     $input = gets.chomp.downcase
     if specialties.include?($input)
-        puts "Here are all of the #{$input.capitalize} Doctors!"
+        puts "Here are all of the #{$input.capitalize} Doctors!".red
         name_arr = Doctor.sort_by_specialty($input).map(&:name).uniq
-        name_arr.each {|name| puts " - #{name}"}
+        name_arr.each {|name| puts " - #{name}".yellow}
         search_by_attributes
     else
-        puts "Specialty not available. Please enter a valid Specialty."
+        puts "Specialty not available. Please enter a valid Specialty.".cyan
         search_specialty
     end
 end
 
 def search_by_attributes
-    puts "How would to search: Rating, Gender, Experience or ZIPcode?"
+    puts "How would to search: Rating, Gender, Experience or ZIPcode?".green
     user_input = gets.chomp.downcase
     if user_input == 'rating'
         search_rating
@@ -66,11 +66,11 @@ def search_by_attributes
     elsif user_input == 'experience'
         search_experience
     elsif user_input == 'zipcode' || user_input == 'zip'
-        puts "Plase enter your zicode, we will find doctors near you!"
+        puts "Plase enter your zicode, we will find doctors near you!".red
         $zip_input = gets.chomp.to_i
         search_zip($zip_input)
     else
-        puts "Please enter a valid search term."
+        puts "Please enter a valid search term.".cyan
         search_by_attributes
     end
 end
@@ -81,7 +81,7 @@ def search_rating
 end
 
 def search_gender
-  puts  "What gender Doctor would you like to see?"
+  puts  "What gender Doctor would you like to see?".green
     input = gets.chomp.downcase
     if input == 'male' || input == 'm'
         Doctor.male($input)
@@ -105,59 +105,59 @@ end
 
 
 def review_methods
-    puts "Would you like to 1.View/edit the reviews you have written, 2.Write a new review."
+    puts "Would you like to 1.View/edit the reviews you have written, 2.Write a new review.".green
     review_input = gets.chomp.to_i
     if review_input == 1
-        puts "Please enter your patient ID."
+        puts "Please enter your patient ID.".red
         p_id = gets.chomp.to_i
         Patient.my_review(p_id)
         option_edit_review
     elsif review_input == 2
         write_review
-    else puts "Please enter the option number as 1 or 2."
+    else puts "Please enter the option number as 1 or 2.".cyan
         review_methods
     end
 end
 
 def option_edit_review
-    puts "Would you like to edit any review? Y/N"
+    puts "Would you like to edit any review? Y/N".green
     answer = gets.chomp.downcase
     if answer == "y" || answer == "yes"
-        puts "Please enter the ID of the review you want to edit."
+        puts "Please enter the ID of the review you want to edit.".red
         id = gets.chomp.to_i
         Patient.edit_review(id)
         ask_whats_next
     elsif answer == "n" || answer == "no"
         ask_whats_next
-    else puts "Please answer Yes or No."
+    else puts "Please answer Yes or No.".cyan
         option_edit_review
     end
 end
     
 
 def write_review
-    puts "Start your review."
-    puts "Please enter your ID."
+    puts "Start your review.".red
+    puts "Please enter your ID.".red
     patient_id = gets.chomp.to_i
-    puts "Please enter your Doctor's ID."
+    puts "Please enter your Doctor's ID.".red
     doctor_id = gets.chomp.to_i
-    puts "Please rate your experience from 1 to 10."
+    puts "Please rate your experience from 1 to 10.".red
     rating = gets.chomp.to_i
-    puts "Please enter a review for your Doctor."
+    puts "Please enter a review for your Doctor.".red
     content = gets.chomp
     patient = Patient.find(patient_id)
     new_review = patient.create_review(rating: rating, content: content, patient_id: patient_id, doctor_id: doctor_id)
-    puts "New Review : 
+    puts "New Review :
     'Patient ID : #{new_review.patient_id}'
     'Doctor ID : #{new_review.doctor_id}'
     'Rating : #{new_review.rating}'
-    'Content : #{new_review.content}'"
-    puts "Thank you for writing a review!"
+    'Content : #{new_review.content}'".yellow
+    puts "Thank you for writing a review!".red
     ask_whats_next
 end
 
 def show_doc_info
-    puts "Please choose a doctor who you want to see the information."
+    puts "Please choose a doctor who you want to see the information.".red
     doc_name = gets.chomp.downcase
     info = Doctor.print_doc_info(doc_name)
     if info != 0
@@ -167,7 +167,7 @@ def show_doc_info
 end
 
 def ask_whats_next
-    puts "What would you like to do next? 1.Search new doctor, 2.Write/edit a review, 3.Exit the search"
+    puts "What would you like to do next? 1.Search new doctor, 2.Write/edit a review, 3.Exit the search".green
     input = gets.chomp.downcase
     if input == "1" || input == "search new doctor"
         search_doctors
@@ -175,7 +175,7 @@ def ask_whats_next
         review_methods
     elsif input == "3" || input == "exit the search"
         exit_search
-    else puts "Please enter a valid response."
+    else puts "Please enter a valid response.".cyan
         ask_whats_next
     end
 end

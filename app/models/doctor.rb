@@ -5,7 +5,7 @@ class Doctor < ActiveRecord::Base
   
     def self.doctors_specialties
         arr = Doctor.all.map(&:specialty).uniq
-        arr.map{|spe| puts " - #{spe.downcase}" }
+        arr.map{|spe| puts " - #{spe.downcase}".yellow }
         arr.map{|spe| spe.downcase}
     end
 
@@ -34,29 +34,29 @@ class Doctor < ActiveRecord::Base
         sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
         mess = sorted_doc.map do |doc| 
                 if doc.ave_rating_of_doctor > 0
-                   " - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}."
-                else " - #{doc.name} has no ratings."
-                end
+                   " - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}.".yellow
+                else " - #{doc.name} has no ratings.".cyan
                end
+            end
         puts mess
     end
 
     def self.male(specialty_input)
         m = Doctor.sort_by_specialty(specialty_input)
         name = m.select{|doctor| doctor.gender == "Male"}.map(&:name).uniq
-        name.map {|name| puts " - #{name}"}
+        name.map {|name| puts " - #{name}".light_blue}
     end
 
     def self.female(specialty_input)
         f = Doctor.sort_by_specialty(specialty_input)
         name = f.select{|doctor| doctor.gender == "Female"}.map(&:name).uniq
-        name.map {|name| puts " - #{name}"}
+        name.map {|name| puts " - #{name}".light_magenta}
     end
 
     def self.experience(specialty_input) #specialized docs over that experience year
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted = docs.sort_by{|doctor| doctor.experience}.reverse
-        puts sorted.map{|doctor| " - #{doctor.name} has #{doctor.experience} years of experience"}
+        puts sorted.map{|doctor| " - #{doctor.name} has #{doctor.experience} years of experience".yellow}
     end
 
     # def self.highest_rating
@@ -69,7 +69,7 @@ class Doctor < ActiveRecord::Base
 
     def self.id_name_match(doctor_id)
         doc = Doctor.find(doctor_id)
-        puts " - #{doc.name}, specialty is #{doc.specialty}"
+        puts " - #{doc.name}, specialty is #{doc.specialty}".yellow
     end
 
     def self.doc_near_zip(specialty_input, zip_input)
@@ -82,7 +82,7 @@ class Doctor < ActiveRecord::Base
             message = ziped_docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}"}
             puts message
         else 
-            puts "There are no doctors near you."
+            puts "There are no doctors near you.".cyan
             return 0
         end
     end
@@ -91,8 +91,9 @@ class Doctor < ActiveRecord::Base
         name_cap = doc_name.split.map{|name| name.capitalize}.join(" ")
         doc = Doctor.find_by(name: name_cap)
         if doc
-        puts " - #{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years, average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}."
-        else puts "Please enter a valid doctor's name."
+        puts " - #{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years,
+         average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}.".yellow
+        else puts "Please enter a valid doctor's name.".red
             return 0
         end
     end
