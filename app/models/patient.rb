@@ -25,7 +25,7 @@ class Patient < ActiveRecord::Base
     def self.docs_seen(id)
         reviews = Review.where(patient_id: id)
         if reviews.length == 0
-            puts "You have not seen any doctors yet."
+            puts "You have not seen any doctors yet.".cyan
             return 0
         else 
         dr_id = reviews.map {|review| review.doctor_id}.uniq
@@ -43,7 +43,7 @@ class Patient < ActiveRecord::Base
     end
 
     def self.edit_review(id)
-        puts "Do you want to edit the 1.rating, 2.content or 3.both? To exit, enter 4"
+        puts "Do you want to edit the 1.rating, 2.content or 3.both? To exit, enter 4".green
         option = gets.chomp.to_i
         edit = Review.find(id)
         if option == 1
@@ -51,11 +51,11 @@ class Patient < ActiveRecord::Base
         elsif option == 2
             Patient.update_content(edit)
         elsif option == 3
-            puts "Please update your rating from 1-10"
+            puts "Please update your rating from 1-10".red
             rating = gets.chomp.to_i
             rating = rating_constraint(rating)
             edit.update(rating: rating)
-            puts "Please update your review content."
+            puts "Please update your review content.".red
             content = gets.chomp
             edit.update(content: content)
             edit.save
@@ -63,27 +63,27 @@ class Patient < ActiveRecord::Base
         elsif option == 4
             ask_whats_next
         else 
-            puts "Please enter a valid option as 1, 2, 3, or 4."
+            puts "Please enter a valid option as 1, 2, 3, or 4.".red
             Patient.edit_review(id)
         end
     end
 
     def self.update_rating(edit)
-        puts "Please update your rating from 1-10"
+        puts "Please update your rating from 1-10".red
         rating = gets.chomp.to_i
         rating = rating_constraint(rating)
         edit.update(rating: rating)
         edit.save
-        puts "Thank you for updating your review!"
+        puts "Thank you for updating your review!".red
         ask_whats_next
     end
 
     def self.update_content(edit)
-        puts "Please update your review content."
+        puts "Please update your review content.".red
         content = gets.chomp
         edit.update(content: content)
         edit.save
-        puts "Thank you for updating your review!"
+        puts "Thank you for updating your review!".red
         ask_whats_next
     end
 
@@ -91,9 +91,9 @@ class Patient < ActiveRecord::Base
         revs = Review.where(patient_id: user_id)
         if revs.length != 0
             revs.map do |rev|
-                puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}"
+                puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}".yellow
             end
-        else puts "You dont have any reviews yet."
+        else puts "You dont have any reviews yet.".cyan
             ask_whats_next
         end
     end
