@@ -46,31 +46,52 @@ class Patient < ActiveRecord::Base
         puts "Do you want to edit the 1.rating, 2.content or 3.both? To exit, enter 4"
         option = gets.chomp.to_i
         edit = Review.find(id)
-        if option == 1 || option == 3
+        if option == 1
+            Patient.update_rating(edit)
+        elsif option == 2
+            Patient.update_content(edit)
+        elsif option == 3
             puts "Please update your rating from 1-10"
             rating = gets.chomp.to_i
             rating = rating_constraint(rating)
             edit.update(rating: rating)
-            edit.save
-            Patient.edit_review(id)
-        end
-        if option == 2 || option == 3
             puts "Please update your review content."
             content = gets.chomp
             edit.update(content: content)
             edit.save
-            Patient.edit_review(id)
-        end 
-        if option == 4
             ask_whats_next
+        elsif option == 4
+            ask_whats_next
+        else 
+            puts "Please enter a valid option as 1, 2, 3, or 4."
+            Patient.edit_review(id)
         end
+    end
+
+    def self.update_rating(edit)
+        puts "Please update your rating from 1-10"
+        rating = gets.chomp.to_i
+        rating = rating_constraint(rating)
+        edit.update(rating: rating)
+        edit.save
+        puts "Thank you for updating your review!"
+        ask_whats_next
+    end
+
+    def self.update_content(edit)
+        puts "Please update your review content."
+        content = gets.chomp
+        edit.update(content: content)
+        edit.save
+        puts "Thank you for updating your review!"
+        ask_whats_next
     end
 
     def self.my_review(user_id)
         revs = Review.where(patient_id: user_id)
         if revs.length != 0
             revs.map do |rev|
-                puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}}"
+                puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}"
             end
         else puts "You dont have any reviews yet."
             ask_whats_next

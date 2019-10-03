@@ -174,7 +174,7 @@ def ask_whats_next
     if input == "1" || input == "search new doctor"
         search_doctors
     elsif input == "2" || input == "write/edit a review"
-        write_review
+        review_methods
     elsif input == "3" || input == "exit the search"
         exit_search
     else puts "Please enter a valid response."
