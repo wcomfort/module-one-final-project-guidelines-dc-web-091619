@@ -22,13 +22,21 @@ describe "Patient" do
     end
 
 end
-# def self.my_review(user_id)
-#     revs = Review.where(patient_id: user_id)
-#     if revs.length != 0
-#         revs.map do |rev|
-#             puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}".yellow
-#         end
-#     else puts "You dont have any reviews yet.".cyan
-#         ask_whats_next
-#     end
-# end
+
+
+describe ".doctors_specialties" do
+
+    it "returns all the specialties of doctors" do
+        spes = Doctor.doctors_specialties
+        expect((spes.length)).to eq(9)
+    end
+
+    it "prints out all the specialties of doctors" do
+        spes = Doctor.doctors_specialties
+        expect(spes).to include("diabetes and metabolism")
+    end
+
+end
+
+
+

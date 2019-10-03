@@ -6,7 +6,8 @@ class Doctor < ActiveRecord::Base
     def self.doctors_specialties
         arr = Doctor.all.map(&:specialty).uniq
         arr.map{|spe| puts " - #{spe.downcase}".yellow }
-        arr.map{|spe| spe.downcase}
+        array = arr.map{|spe| spe.downcase}
+        array
     end
 
     def self.sort_by_specialty(specialty_input)
