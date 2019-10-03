@@ -96,6 +96,7 @@ class Patient < ActiveRecord::Base
         else puts "You dont have any reviews yet.".cyan
             ask_whats_next
         end
+        revs
     end
 
 end
