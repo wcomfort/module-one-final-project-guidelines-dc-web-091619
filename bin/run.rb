@@ -1,5 +1,5 @@
 require_relative '../config/environment'
 
 
-welcome
-get_input
+DocBlocc.welcome
+DocBlocc.get_input
