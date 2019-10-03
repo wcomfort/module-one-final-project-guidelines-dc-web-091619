@@ -18,9 +18,6 @@ def get_input
 end
 
 
-
-
-
 def search_doctors
     puts "Would you like to search for a specialty or your Doctors?".green
     input = gets.chomp
@@ -40,6 +37,7 @@ def search_doctors
         search_doctors
     end
 end
+
 
 def search_specialty
     puts "What Specialty would you like to search for?".green
