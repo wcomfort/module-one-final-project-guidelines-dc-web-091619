@@ -72,10 +72,14 @@ class Doctor < ActiveRecord::Base
         puts " - #{doc.name}, specialty is #{doc.specialty}"
     end
 
-    def self.doc_near_zip(zip_input)
-        docs = Doctor.where(zip: ((zip_input - 5)..(zip_input + 5)))
-        if docs.length > 0
-            message = docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}"}
+    def self.doc_near_zip(specialty_input, zip_input)
+        docs = Doctor.sort_by_specialty(specialty_input)
+        ziped_docs = docs.select do |doc|
+            doc.zip >= (zip_input - 5) && doc.zip <= (zip_input + 5)
+        end 
+        
+        if ziped_docs.length > 0
+            message = ziped_docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}"}
             puts message
         else 
             puts "There are no doctors near you."

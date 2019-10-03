@@ -3,6 +3,7 @@ require 'sinatra/activerecord'
 require 'ostruct'
 require 'date'
 require 'pry'
+require 'colorize'
 
 Bundler.require
 

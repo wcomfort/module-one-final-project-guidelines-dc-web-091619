@@ -97,13 +97,11 @@ def search_experience
 end
 
 def search_zip(zip_input)
-    if Doctor.doc_near_zip(zip_input) != 0
+    if Doctor.doc_near_zip($input, zip_input) != 0
     show_doc_info
     else ask_whats_next
     end
 end
-
-
 
 
 def review_methods
