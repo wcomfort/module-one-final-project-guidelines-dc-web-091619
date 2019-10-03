@@ -74,7 +74,7 @@ Doctor.find_or_create_by(name: "Tommy Caldwell", gender: "Male", specialty: "Spo
 36.times do 
     Review.create([{
     rating: Faker::Number.within(range: 1..10),
-    content: Faker::String.random(length: 15..45),
+    content: Faker::TvShows::MichaelScott.quote,
     patient_id: Patient.all.ids.sample,
     doctor_id: Doctor.all.ids.sample
     }])
