@@ -43,29 +43,27 @@ class Patient < ActiveRecord::Base
     end
 
     def self.edit_review(id)
-        puts "Do you want to edit the 1.rating, 2.content or 3.both? To exit, enter 4".green
-        option = gets.chomp.to_i
-        edit = Review.find(id)
-        if option == 1
-            Patient.update_rating(edit)
-        elsif option == 2
-            Patient.update_content(edit)
-        elsif option == 3
-            puts "Please update your rating from 1-10".red
-            rating = gets.chomp.to_i
-            rating = rating_constraint(rating)
-            edit.update(rating: rating)
-            puts "Please update your review content.".red
-            content = gets.chomp
-            edit.update(content: content)
-            edit.save
-            ask_whats_next
-        elsif option == 4
-            ask_whats_next
-        else 
-            puts "Please enter a valid option as 1, 2, 3, or 4.".red
-            Patient.edit_review(id)
-        end
+        prompt = TTY::Prompt.new
+        input = prompt.select("Do you want to edit the rating, content or both?".green, 
+            ["Rating", "Content", "Both", "Exit"])
+            edit = Review.find(id)
+            if input == "Rating"
+                Patient.update_rating(edit)
+            elsif input == "Content"
+                Patient.update_content(edit)
+            elsif input == "Both"
+                puts "Please update your rating from 1-10".red
+                rating = gets.chomp.to_i
+                rating = rating_constraint(rating)
+                edit.update(rating: rating)
+                puts "Please update your review content.".red
+                content = gets.chomp
+                edit.update(content: content)
+                edit.save
+                ask_whats_next
+            else input == "Exit"
+                ask_whats_next
+            end
     end
 
     def self.update_rating(edit)
