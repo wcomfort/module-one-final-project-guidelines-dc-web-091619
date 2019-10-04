@@ -79,7 +79,7 @@ class Doctor < ActiveRecord::Base
         end 
         
         if ziped_docs.length > 0
-            message = ziped_docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}"}
+            message = ziped_docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}".blue}
             puts message
         else 
             puts "There are no doctors near you.".light_red

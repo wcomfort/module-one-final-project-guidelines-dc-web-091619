@@ -1,11 +1,11 @@
 require_relative '../config/environment.rb'
 
-describe "#welcome" do
-    it 'puts out a welcome message in the terminal' do
-        expect($stdout).to receive(:puts).with("Welcome to Doc on Ya Blocc!".red)
-        welcome
-    end
-end
+# describe "#welcome" do
+#     it 'puts out a welcome message in the terminal' do
+#         expect($stdout).to receive(:puts).with("Welcome to Doc on Ya Blocc!".red)
+#         welcome
+#     end
+# end
 
 describe "Patient" do 
 
