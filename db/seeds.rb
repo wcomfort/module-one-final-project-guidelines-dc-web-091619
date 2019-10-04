@@ -16,7 +16,7 @@ Doctor.find_or_create_by(name: "Zee Chris", gender: "Male", specialty: "Internal
 Doctor.find_or_create_by(name: "John Cochran", gender: "Male", specialty: "Neurology", experience: 46, zip: 20010)
 Doctor.find_or_create_by(name: "Mark Theiss", gender: "Male", specialty: "Orthopaedic Surgery", experience: 44, zip: 20010)
 Doctor.find_or_create_by(name: "Grace Potter", gender: "Female", specialty: "Neurology", experience: 25, zip: 20010)
-Doctor.find_or_create_by(name: "Shaquille ONeil", gender: "Male", specialty: "Sports Medicine", experience: 22, zip: 20010)
+Doctor.find_or_create_by(name: "Shaquille Oneal", gender: "Male", specialty: "Sports Medicine", experience: 22, zip: 20010)
 Doctor.find_or_create_by(name: "Gabby Villa", gender: "Female", specialty: "Internal Medicine", experience: 10, zip: 20010)
 Doctor.find_or_create_by(name: "Tyler Kessler", gender: "Male", specialty: "Urology", experience: 15, zip: 20010)
 Doctor.find_or_create_by(name: "Jawn Browning", gender: "Male", specialty: "Sports Medicine", experience: 30, zip: 20010)
@@ -63,7 +63,7 @@ Doctor.find_or_create_by(name: "Bob Smith", gender: "Male", specialty: "Diabetes
 Doctor.find_or_create_by(name: "Tommy Caldwell", gender: "Male", specialty: "Sports Medicine", experience: 20, zip: 20025)
 
 
-36.times do 
+100.times do 
     Patient.create([{
     name: Faker::Name.name,
     gender: Faker::Gender.binary_type
@@ -71,7 +71,7 @@ Doctor.find_or_create_by(name: "Tommy Caldwell", gender: "Male", specialty: "Spo
     end
     
     
-36.times do 
+1000.times do 
     Review.create([{
     rating: Faker::Number.within(range: 1..10),
     content: Faker::TvShows::MichaelScott.quote,

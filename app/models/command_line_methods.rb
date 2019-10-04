@@ -1,17 +1,23 @@
 require_relative '../../config/environment.rb'
 require 'tty-prompt'
 
+
 def welcome
-    puts ColorizedString["DOC ON YA BLOCC"].white.on_red.blink
+    puts ColorizedString[
+"
+██████╗  ██████╗  ██████╗     ██████╗ ███╗   ██╗    ██╗   ██╗ █████╗     ██████╗ ██╗      ██████╗  ██████╗ ██████╗
+██╔══██╗██╔═══██╗██╔════╝    ██╔═══██╗████╗  ██║    ╚██╗ ██╔╝██╔══██╗    ██╔══██╗██║     ██╔═══██╗██╔════╝██╔════╝
+██║  ██║██║   ██║██║         ██║   ██║██╔██╗ ██║     ╚████╔╝ ███████║    ██████╔╝██║     ██║   ██║██║     ██║     
+██║  ██║██║   ██║██║         ██║   ██║██║╚██╗██║      ╚██╔╝  ██╔══██║    ██╔══██╗██║     ██║   ██║██║     ██║     
+██████╔╝╚██████╔╝╚██████╗    ╚██████╔╝██║ ╚████║       ██║   ██║  ██║    ██████╔╝███████╗╚██████╔╝╚██████╗╚██████╗
+╚═════╝  ╚═════╝  ╚═════╝     ╚═════╝ ╚═╝  ╚═══╝       ╚═╝   ╚═╝  ╚═╝    ╚═════╝ ╚══════╝ ╚═════╝  ╚═════╝ ╚═════╝
+"
+    ].white.on_red.blink
     puts "by Will Comfort and Kailey Lee"
     sleep(1)
-    puts "\nWelcome to Doc on Ya Blocc!\n "
+    puts "\nWelcome to Doc on Ya Blocc!\n ".red
 end
 
-# "\n \n"
-# def welcome
-#     puts "Welcome to Doc on Ya Blocc!".red
-# end
 
 
 def get_input

@@ -89,7 +89,7 @@ class Patient < ActiveRecord::Base
         revs = Review.where(patient_id: user_id)
         if revs.length != 0
             revs.map do |rev|
-                puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}".yellow
+                puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}".blue
             end
         else puts "You dont have any reviews yet.".light_red
             ask_whats_next
