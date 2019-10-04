@@ -4,6 +4,7 @@ require 'ostruct'
 require 'date'
 require 'pry'
 require 'colorize'
+require 'colorized_string'
 
 
 Bundler.require

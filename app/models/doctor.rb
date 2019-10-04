@@ -34,8 +34,8 @@ class Doctor < ActiveRecord::Base
         sorted_doc = docs.sort_by{|doctor| doctor.ave_rating_of_doctor}.reverse
         mess = sorted_doc.map do |doc| 
                 if doc.ave_rating_of_doctor > 0
-                   " - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}.".yellow
-                else " - #{doc.name} has no ratings.".cyan
+                   " - #{doc.name} has a average rating of #{doc.ave_rating_of_doctor}.".blue
+                else " - #{doc.name} has no ratings.".light_red
                end
             end
         puts mess
@@ -56,7 +56,7 @@ class Doctor < ActiveRecord::Base
     def self.experience(specialty_input) #specialized docs over that experience year
         docs = Doctor.sort_by_specialty(specialty_input)
         sorted = docs.sort_by{|doctor| doctor.experience}.reverse
-        puts sorted.map{|doctor| " - #{doctor.name} has #{doctor.experience} years of experience".yellow}
+        puts sorted.map{|doctor| " - #{doctor.name} has #{doctor.experience} years of experience".blue}
     end
 
     # def self.highest_rating
@@ -69,7 +69,7 @@ class Doctor < ActiveRecord::Base
 
     def self.id_name_match(doctor_id)
         doc = Doctor.find(doctor_id)
-        puts " - #{doc.name}, specialty is #{doc.specialty}".yellow
+        puts " - #{doc.name}, specialty is #{doc.specialty}".blue
     end
 
     def self.doc_near_zip(specialty_input, zip_input)
@@ -82,7 +82,7 @@ class Doctor < ActiveRecord::Base
             message = ziped_docs.map {|doc| " - #{doc.name} is at ZIP code #{doc.zip}"}
             puts message
         else 
-            puts "There are no doctors near you.".cyan
+            puts "There are no doctors near you.".light_red
             return 0
         end
     end
@@ -92,7 +92,7 @@ class Doctor < ActiveRecord::Base
         doc = Doctor.find_by(name: name_cap)
         if doc
         puts " - #{doc.name} is #{doc.gender} and has specialty of #{doc.specialty}, experience of #{doc.experience} years,
-         average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}.".yellow
+         average rating of #{doc.ave_rating_of_doctor} and is located in ZIP code #{doc.zip}.".blue
         else puts "Please enter a valid doctor's name.".red
             return 0
         end

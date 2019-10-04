@@ -25,7 +25,7 @@ class Patient < ActiveRecord::Base
     def self.docs_seen(id)
         reviews = Review.where(patient_id: id)
         if reviews.length == 0
-            puts "You have not seen any doctors yet.".cyan
+            puts "You have not seen any doctors yet.".light_red
             return 0
         else 
         dr_id = reviews.map {|review| review.doctor_id}.uniq
@@ -44,7 +44,7 @@ class Patient < ActiveRecord::Base
 
     def self.edit_review(id)
         prompt = TTY::Prompt.new
-        input = prompt.select("Do you want to edit the rating, content or both?".green, 
+        input = prompt.select("\nDo you want to edit the rating, content or both?\n".green, 
             ["Rating", "Content", "Both", "Exit"])
             edit = Review.find(id)
             if input == "Rating"
@@ -91,7 +91,7 @@ class Patient < ActiveRecord::Base
             revs.map do |rev|
                 puts " - Review id: #{rev.id}, Doctor: #{Doctor.find(rev.doctor_id).name}, Rating: #{rev.rating}, Content: #{rev.content}".yellow
             end
-        else puts "You dont have any reviews yet.".cyan
+        else puts "You dont have any reviews yet.".light_red
             ask_whats_next
         end
         revs

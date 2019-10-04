@@ -2,8 +2,16 @@ require_relative '../../config/environment.rb'
 require 'tty-prompt'
 
 def welcome
-    puts "Welcome to Doc on Ya Blocc!".red
+    puts ColorizedString["DOC ON YA BLOCC"].white.on_red.blink
+    puts "by Will Comfort and Kailey Lee"
+    sleep(1)
+    puts "\nWelcome to Doc on Ya Blocc!\n "
 end
+
+# "\n \n"
+# def welcome
+#     puts "Welcome to Doc on Ya Blocc!".red
+# end
 
 
 def get_input
@@ -19,7 +27,7 @@ end
 
 def search_doctors
     prompt = TTY::Prompt.new
-    input = prompt.select("Would you like to search for a specialty or your Doctors?".green, ["Specialties", "My Doctors"])
+    input = prompt.select("\nWould you like to search for a specialty or your Doctors?\n".green, ["Specialties", "My Doctors"])
     if input.downcase == 'specialties'
         search_specialty
     else input.downcase == 'my doctors'
@@ -38,17 +46,17 @@ end
 def search_specialty
     prompt = TTY::Prompt.new
     specialties = Doctor.doctors_specialties
-    $input = prompt.select("What Specialty would you like to search for?".green, specialties, filter: true)
+    $input = prompt.select("\nWhat Specialty would you like to search for?\n".green, specialties, filter: true)
         puts "Here are all of the #{$input.capitalize} Doctors!".red
         name_arr = Doctor.sort_by_specialty($input).map(&:name).uniq
-        name_arr.each {|name| puts " - #{name}".yellow}
+        name_arr.each {|name| puts " - #{name}".blue}
         search_by_attributes
 end
 
 
 def search_by_attributes
     prompt = TTY::Prompt.new
-    input = prompt.select("How would to search: Rating, Gender, Experience or ZIPcode?".green, ["Rating", "Gender", "Experience", "Zip Code"])
+    input = prompt.select("\nHow would to search: Rating, Gender, Experience or ZIPcode?\n".green, ["Rating", "Gender", "Experience", "Zip Code"])
     if input == 'Rating'
         search_rating
     elsif input == 'Gender'
@@ -97,7 +105,7 @@ end
 
 def review_methods
     prompt = TTY::Prompt.new
-    input = prompt.select("Would you like to View/Edit the reviews you have written or write a new review.".green, 
+    input = prompt.select("\nWould you like to View/Edit the reviews you have written or write a new review.\n".green, 
     ["View/Edit reviews", "Write a review"])
     if input == "View/Edit reviews"
         puts "Please enter your patient ID.".red
@@ -112,7 +120,7 @@ end
 
 def option_edit_review
     prompt = TTY::Prompt.new
-    input = prompt.select("Would you like to edit any review? Y/N".green, ["Yes", "No"])
+    input = prompt.select("\nWould you like to edit any review? Y/N\n".green, ["Yes", "No"])
     if input == "Yes"
         puts "Please enter the ID of the review you want to edit.".red
         id = gets.chomp.to_i
@@ -140,13 +148,13 @@ def write_review
     'Patient ID : #{new_review.patient_id}'
     'Doctor ID : #{new_review.doctor_id}'
     'Rating : #{new_review.rating}'
-    'Content : #{new_review.content}'".yellow
+    'Content : #{new_review.content}'".blue
     puts "Thank you for writing a review!".red
     ask_whats_next
 end
 ##############################################################################
 def show_doc_info
-    puts "Please enter the Doctor's name who you want to see the information.".red
+    puts "\nPlease enter the Doctor's name who you want to see the information.".red
     doc_name = gets.chomp.downcase
     info = Doctor.print_doc_info(doc_name)
     if info != 0
@@ -157,7 +165,7 @@ end
 #############################################################################
 def ask_whats_next
     prompt = TTY::Prompt.new
-    input = prompt.select("What would you like to do next? Search new doctor, Write/Edit a review, or Exit the search.".green, 
+    input = prompt.select("\nWhat would you like to do next? Search new doctor, Write/Edit a review, or Exit the search.\n".green, 
         ["Search new doctor", "Write/Edit a review", "Exit the search"])
     if input == "Search new doctor"
         search_doctors
